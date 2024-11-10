@@ -20,6 +20,9 @@ from django.urls import path
 #we need include to include those urls from our apps!
 from django.urls import include
 
+#404 handler variable
+handler404 = 'myapp.views.custom_page_not_found'
+
 urlpatterns = [
     path("blog/",include("blog.urls")),
 
