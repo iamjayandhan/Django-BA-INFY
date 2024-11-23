@@ -3,6 +3,7 @@ from django.urls import path
 #import py func from views file!
 from . import views
 
+#after /blog should be there, then others!
 app_name = 'blog'
 
 urlpatterns = [
