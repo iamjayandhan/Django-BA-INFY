@@ -37,7 +37,7 @@
                                     {% comment %} <a href="/blog/post/{{post.id}}">Read More</a> {% endcomment %}
 
                                     {% comment %} using url tag {% endcomment %}
-                                    <a href="{% url 'blog:detail' post_id=post.id %}">Read More</a>
+                                    <a href="{% url 'blog:detail' slug=post.slug %}">Read More</a>
 
                                     <a class="text-decoration-none text-dark fw-bold" href="#">Sports</a>
                                 </div>

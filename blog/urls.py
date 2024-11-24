@@ -10,7 +10,7 @@ urlpatterns = [
     path("",views.index,name="index"),
 
     #dynamic url, if int but string is given in url, then it wont work!
-    path("post/<int:post_id>",views.detail,name="detail"),
+    path("post/<str:slug>",views.detail,name="detail"),
 
     #new url path
     path("new_url",views.new_url_view,name="new_page_url"),

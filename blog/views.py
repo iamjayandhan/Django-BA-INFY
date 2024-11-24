@@ -12,6 +12,9 @@ import logging
 #importing Post model
 from .models import Post
 
+#http404
+from django.http import Http404
+
 #initial req
 # def index(request):
 #     return HttpRe sponse("Hello world, You are at blog's index")
@@ -39,7 +42,7 @@ def index(request):
 #DYNAMIC URLS
 # def detail(request,post_id):
 #     return HttpResponse(f"You are viewing post detail page. And ID is {post_id}")
-def detail(request,post_id):
+def detail(request,slug):
     #LOGGER IMPLEMENTATION
     # to fetch requested post's details!
     #returns {..} of matching post_id from url into "item" var, else returns None.
@@ -47,8 +50,12 @@ def detail(request,post_id):
     #getting static data!
     # post = next((item for item in posts if item['id']== post_id),None)
 
-    #getting data from model
-    post = Post.objects.get(pk=post_id)
+    try:
+        #getting data from model
+        post = Post.objects.get(slug=slug)
+    except Post.DoesNotExist:
+        #if post is not found, return 404 error
+        raise Http404("Post Does not Exists!")
 
     #logging
     # logger = logging.getLogger("TESTING")
