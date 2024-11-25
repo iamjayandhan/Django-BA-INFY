@@ -53,6 +53,8 @@ def detail(request,slug):
     try:
         #getting data from model
         post = Post.objects.get(slug=slug)
+        #to show related posts in details page...
+        related_posts = Post.objects.filter(category=post.category).exclude(pk=post.id)
     except Post.DoesNotExist:
         #if post is not found, return 404 error
         raise Http404("Post Does not Exists!")
@@ -62,7 +64,7 @@ def detail(request,slug):
     # logger.debug(f'Post variable is {post}')
 
     #share the same!
-    return render(request,'blog/detail.html',{'post':post})
+    return render(request,'blog/detail.html',{'post':post,'related_posts':related_posts})
 
 #REDIRECTS, please do import redirect from shortcuts and reverse from urls!
 def old_url_redirect(request):

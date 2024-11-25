@@ -1,11 +1,15 @@
 from django.core.management.base import BaseCommand
-from blog.models import Post
+from blog.models import Post,Category
 from django.utils.text import slugify
+import random
 
 class Command(BaseCommand):
     help = "This command inserts post data"
 
     def handle(self, *args, **options):
+
+        Post.objects.all().delete()
+
         titles = [
             "Getting Started with Django: A Beginner's Guide",
             "Django vs. Flask: Which Framework Should You Choose?",
@@ -44,8 +48,13 @@ class Command(BaseCommand):
             "https://picsum.photos/seed/django9/800/400",
             "https://picsum.photos/seed/django10/800/400",
         ]
-        
+
+        categories = Category.objects.all()
+
         for title, content_text, img_url in zip(titles, content, img_urls):
+
+            category = random.choice(categories)
+
             words = slugify(title).split("-")[:2]  # First two words
             slug = "-".join(words)[:50]
             
@@ -56,6 +65,6 @@ class Command(BaseCommand):
                 slug = f"{original_slug}-{counter}"
                 counter += 1
             
-            Post.objects.create(title=title, content=content_text, img_url=img_url, slug=slug)
+            Post.objects.create(title=title, content=content_text, img_url=img_url, slug=slug,category=category)
         
         self.stdout.write(self.style.SUCCESS("Data has been inserted successfully!"))
